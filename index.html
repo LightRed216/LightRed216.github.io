@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Михаилу 50! — Юбилей в стиле Pin-up</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Oswald:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Pacifico&family=Bebas+Neue&family=Lobster&display=swap" rel="stylesheet">
+    <!-- Font Awesome для иконок плеера (лёгкая версия) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
             --red: #c0392b;
@@ -50,7 +52,7 @@
                     rgba(45,35,20,0.8) 75%,
                     rgba(20,15,10,0.95) 100%);
             background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
+            animation: gradientShift 25s ease infinite; /* ещё медленнее для производительности */
         }
 
         @keyframes gradientShift {
@@ -61,7 +63,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Парящие золотые частицы (облегчённые для мобильных) */
+        /* Парящие золотые частицы (ультралёгкие для мобильных) */
         .particles-container {
             position: fixed;
             top: 0;
@@ -76,8 +78,8 @@
             position: absolute;
             border-radius: 50%;
             background: radial-gradient(circle, 
-                rgba(212,168,67,0.6) 0%, 
-                rgba(240,200,100,0.2) 40%, 
+                rgba(212,168,67,0.5) 0%, 
+                rgba(240,200,100,0.15) 40%, 
                 transparent 70%);
             animation: floatUp linear infinite;
             opacity: 0;
@@ -89,10 +91,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.7;
+                opacity: 0.6;
             }
             90% {
-                opacity: 0.2;
+                opacity: 0.15;
             }
             100% {
                 transform: translateY(-100vh) scale(1.5);
@@ -100,18 +102,18 @@
             }
         }
 
-        /* Мерцающие блики (только 2 для лёгкости) */
+        /* Мерцающие блики (всего 1 на мобильных, 2 на десктопе) */
         .shimmer {
             position: fixed;
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             background: radial-gradient(circle, 
-                rgba(255,215,0,0.08) 0%, 
+                rgba(255,215,0,0.06) 0%, 
                 transparent 70%);
             pointer-events: none;
             z-index: 0;
-            animation: shimmerFloat 10s ease-in-out infinite;
+            animation: shimmerFloat 12s ease-in-out infinite;
         }
 
         .shimmer:nth-child(1) {
@@ -123,27 +125,27 @@
         .shimmer:nth-child(2) {
             top: 65%;
             left: 70%;
-            animation-delay: -5s;
-            width: 180px;
-            height: 180px;
+            animation-delay: -6s;
+            width: 140px;
+            height: 140px;
         }
 
         @keyframes shimmerFloat {
             0%, 100% {
                 transform: translate(0, 0) scale(1);
-                opacity: 0.2;
-            }
-            25% {
-                transform: translate(40px, -20px) scale(1.1);
-                opacity: 0.4;
-            }
-            50% {
-                transform: translate(-15px, 30px) scale(0.9);
                 opacity: 0.15;
             }
+            25% {
+                transform: translate(30px, -15px) scale(1.1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(-10px, 25px) scale(0.9);
+                opacity: 0.1;
+            }
             75% {
-                transform: translate(-30px, -15px) scale(1.05);
-                opacity: 0.35;
+                transform: translate(-20px, -10px) scale(1.05);
+                opacity: 0.25;
             }
         }
 
@@ -155,7 +157,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 1;
-            opacity: 0.04;
+            opacity: 0.03;
             background:
                 repeating-linear-gradient(0deg, 
                     transparent, 
@@ -200,15 +202,15 @@
             width: 100%;
             height: 100%;
             background: radial-gradient(ellipse at 50% 50%, 
-                rgba(255,215,0,0.05) 0%, 
+                rgba(255,215,0,0.04) 0%, 
                 transparent 70%);
-            animation: overlayGlow 5s ease-in-out infinite;
+            animation: overlayGlow 6s ease-in-out infinite;
             pointer-events: none;
         }
 
         @keyframes overlayGlow {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.5; }
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.4; }
         }
 
         .page-1-overlay.hidden {
@@ -225,7 +227,7 @@
             z-index: 2;
         }
 
-        /* ⭐ ЦИФРА 50 С УСИЛЕННЫМИ ТЕНЯМИ ⭐ */
+        /* ⭐ ЦИФРА 50 С УСИЛЕННЫМИ ТЕНЯМИ (НО ОСЛАБЛЕННЫМИ ДЛЯ iOS) ⭐ */
         .big-50 {
             font-family: 'Bebas Neue', 'Oswald', sans-serif;
             font-size: clamp(140px, 22vw, 260px);
@@ -239,22 +241,36 @@
             text-stroke: 5px #000;
             paint-order: stroke fill;
             
+            /* Базовые тени (общие) */
             text-shadow: 
                 0 0 10px rgba(0,0,0,0.9),
                 0 0 20px rgba(0,0,0,0.8),
-                0 0 30px rgba(212,168,67,0.9),
-                0 0 50px rgba(212,168,67,0.8),
-                0 0 80px rgba(240,180,80,0.7),
-                0 0 120px rgba(255,200,100,0.6),
-                0 0 160px rgba(255,200,100,0.5),
-                0 0 200px rgba(255,180,40,0.4),
-                0 0 240px rgba(255,180,0,0.3),
+                0 0 30px rgba(212,168,67,0.7),
+                0 0 50px rgba(212,168,67,0.6),
+                0 0 80px rgba(240,180,80,0.5),
+                0 0 120px rgba(255,200,100,0.4),
+                0 0 160px rgba(255,200,100,0.3),
                 0 6px 12px rgba(0,0,0,0.9),
                 0 10px 20px rgba(0,0,0,0.7),
                 0 15px 30px rgba(0,0,0,0.5);
             
             animation: fiftyGlow 2.5s ease-in-out infinite;
-            filter: drop-shadow(0 0 40px rgba(255,180,0,0.8)) drop-shadow(0 0 80px rgba(255,150,0,0.4));
+            /* Общий фильтр, который будет ослаблен для iOS */
+            filter: drop-shadow(0 0 30px rgba(255,180,0,0.6));
+        }
+
+        /* Для iOS убираем лишние тени и уменьшаем свечение */
+        .ios .big-50 {
+            text-shadow: 
+                0 0 8px rgba(0,0,0,0.9),
+                0 0 15px rgba(0,0,0,0.7),
+                0 0 20px rgba(212,168,67,0.5),
+                0 0 30px rgba(212,168,67,0.4),
+                0 0 50px rgba(240,180,80,0.3),
+                0 6px 10px rgba(0,0,0,0.8),
+                0 8px 15px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 0 15px rgba(255,180,0,0.3));
+            animation: fiftyGlowIOS 2.5s ease-in-out infinite;
         }
 
         @keyframes fiftyGlow {
@@ -262,11 +278,11 @@
                 text-shadow: 
                     0 0 10px rgba(0,0,0,0.9),
                     0 0 20px rgba(0,0,0,0.8),
-                    0 0 30px rgba(212,168,67,0.9),
-                    0 0 50px rgba(212,168,67,0.8),
-                    0 0 80px rgba(240,180,80,0.7),
-                    0 0 120px rgba(255,200,100,0.6),
-                    0 0 160px rgba(255,200,100,0.5),
+                    0 0 30px rgba(212,168,67,0.7),
+                    0 0 50px rgba(212,168,67,0.6),
+                    0 0 80px rgba(240,180,80,0.5),
+                    0 0 120px rgba(255,200,100,0.4),
+                    0 0 160px rgba(255,200,100,0.3),
                     0 6px 12px rgba(0,0,0,0.9),
                     0 10px 20px rgba(0,0,0,0.7);
             }
@@ -274,15 +290,34 @@
                 text-shadow: 
                     0 0 15px rgba(0,0,0,1),
                     0 0 30px rgba(0,0,0,0.9),
-                    0 0 50px rgba(255,200,100,1),
-                    0 0 80px rgba(240,180,80,0.9),
-                    0 0 120px rgba(255,190,70,0.8),
-                    0 0 180px rgba(255,160,40,0.6),
-                    0 0 220px rgba(255,200,50,0.5),
-                    0 0 280px rgba(255,180,0,0.4),
+                    0 0 50px rgba(255,200,100,0.8),
+                    0 0 80px rgba(240,180,80,0.7),
+                    0 0 120px rgba(255,190,70,0.6),
+                    0 0 180px rgba(255,160,40,0.4),
                     0 8px 16px rgba(0,0,0,1),
                     0 12px 24px rgba(0,0,0,0.8),
                     0 18px 36px rgba(0,0,0,0.6);
+            }
+        }
+
+        @keyframes fiftyGlowIOS {
+            0%,100% { 
+                text-shadow: 
+                    0 0 8px rgba(0,0,0,0.9),
+                    0 0 15px rgba(0,0,0,0.7),
+                    0 0 20px rgba(212,168,67,0.5),
+                    0 0 30px rgba(212,168,67,0.4),
+                    0 0 50px rgba(240,180,80,0.3),
+                    0 6px 10px rgba(0,0,0,0.8);
+            }
+            50% { 
+                text-shadow: 
+                    0 0 12px rgba(0,0,0,0.9),
+                    0 0 25px rgba(0,0,0,0.8),
+                    0 0 35px rgba(255,200,100,0.6),
+                    0 0 55px rgba(240,180,80,0.4),
+                    0 0 80px rgba(255,160,40,0.3),
+                    0 8px 12px rgba(0,0,0,0.9);
             }
         }
 
@@ -479,6 +514,14 @@
                 inset 0 1px 0 rgba(255,255,255,0.03),
                 0 0 40px rgba(212,168,67,0.1);
         }
+        /* На мобильных убираем backdrop-filter для производительности */
+        @media (max-width: 768px) {
+            .invitation-card, .venue-card, .program-card, .dress-code-card, .rsvp-card {
+                backdrop-filter: none;
+                background: rgba(20,15,10,0.85);
+            }
+        }
+
         .invitation-card h2 {
             font-family: 'Playfair Display', serif;
             font-size: clamp(22px, 4vw, 32px);
@@ -487,7 +530,6 @@
             text-shadow: 0 0 15px rgba(240,200,100,0.3);
         }
         
-        /* ⭐ "PIN-UP" — ТЕПЕРЬ ТОЛЬКО СЛОВО PIN-UP КРУПНОЕ И ЯРКОЕ ⭐ */
         .pinup-style {
             font-family: 'Pacifico', cursive;
             font-size: clamp(22px, 3.5vw, 30px);
@@ -548,7 +590,6 @@
             display: block;
         }
 
-        /* ⭐ ФОТО 4 (ДРЕСС-КОД) — ТЕПЕРЬ ПОЛНОСТЬЮ ВИДНО ⭐ */
         .photo-frame-4 {
             width: 100%;
             max-width: 500px;
@@ -718,7 +759,7 @@
             text-shadow: 0 0 20px rgba(240,200,100,0.3);
         }
 
-        /* ═══════════ МУЗЫКАЛЬНЫЙ ПЛЕЕР ═══════════ */
+        /* ═══════════ МУЗЫКАЛЬНЫЙ ПЛЕЕР (как на свадебном сайте) ═══════════ */
         .music-player {
             position: fixed;
             bottom: 15px;
@@ -733,6 +774,7 @@
             gap: 8px;
             border: 1px solid rgba(212,168,67,0.5);
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            font-size: 14px;
         }
         .music-player.show {
             display: flex;
@@ -743,7 +785,7 @@
             background: transparent;
             border: none;
             color: #f0c060;
-            font-size: 0.9rem;
+            font-size: 1rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -781,9 +823,9 @@
     <!-- ═══════════ ЛЁГКИЙ АНИМИРОВАННЫЙ ФОН ═══════════ -->
     <div class="animated-bg"></div>
     
-    <!-- Мерцающие блики (всего 2) -->
+    <!-- Мерцающие блики (1 на мобильных, 2 на десктопе) -->
     <div class="shimmer"></div>
-    <div class="shimmer"></div>
+    <div class="shimmer" id="shimmer2"></div>
     
     <!-- Парящие частицы (облегчённый режим) -->
     <div class="particles-container" id="particlesContainer"></div>
@@ -801,11 +843,11 @@
         <div class="age-badge" title="18+">18+</div>
     </div>
 
-    <!-- ═══════════ МУЗЫКАЛЬНЫЙ ПЛЕЕР (фиксированный) ═══════════ -->
+    <!-- ═══════════ МУЗЫКАЛЬНЫЙ ПЛЕЕР (как в свадебном сайте) ═══════════ -->
     <div class="music-player" id="musicPlayer">
-        <button class="music-btn" id="playBtn" title="Включить музыку">▶</button>
-        <button class="music-btn" id="pauseBtn" style="display:none;" title="Пауза">⏸</button>
-        <span class="music-text">МУЗЫКА</span>
+        <button class="music-btn" id="playBtn" title="Включить музыку"><i class="fas fa-play"></i></button>
+        <button class="music-btn" id="pauseBtn" style="display:none;" title="Пауза"><i class="fas fa-pause"></i></button>
+        <span class="music-text">ЗВУК</span>
     </div>
 
     <!-- ═══════════ ОСНОВНОЙ КОНТЕНТ (страница 2) ═══════════ -->
@@ -842,7 +884,8 @@
                     <span class="photo-placeholder">📷 Фото 3<br><small>3.jpg</small></span>
                 </div>
                 <p style="color:#c0a880;">Адрес: МЦК ЗИЛ, 2-й Кожуховский пр-д, д. 29, корп. 6</p>
-                <a href="#" class="btn-map" onclick="window.open('https://yandex.ru/maps/213/moscow/?text=2-й%20Кожуховский%20пр-д,%20д.%2029,%20корп.%206&z=16','_blank');return false;">🗺 Карта (Яндекс)</a>
+                <!-- Кнопка карты: пробуем открыть приложение, иначе веб -->
+                <a href="#" class="btn-map" id="mapButton">🗺 Карта (Яндекс)</a>
             </div>
 
             <div class="program-card">
@@ -905,10 +948,22 @@
 
     <script>
         (function() {
-            // ═══════════ ОПТИМИЗАЦИЯ: МЕНЬШЕ ЧАСТИЦ НА МОБИЛЬНЫХ ═══════════
+            // ═══════════ ОПРЕДЕЛЕНИЕ iOS И ДОБАВЛЕНИЕ КЛАССА ═══════════
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            if (isIOS) {
+                document.documentElement.classList.add('ios');
+            }
+
+            // ═══════════ ОПТИМИЗАЦИЯ: МЕНЬШЕ ЭФФЕКТОВ НА МОБИЛЬНЫХ ═══════════
             const isMobile = window.innerWidth < 768;
-            const particleInterval = isMobile ? 800 : 300; // реже на телефонах
-            const maxInitialParticles = isMobile ? 8 : 20;
+            const particleInterval = isMobile ? 1000 : 400; // ещё реже на телефонах
+            const maxInitialParticles = isMobile ? 6 : 15;
+            // Убираем второй shimmer на мобильных
+            const shimmer2 = document.getElementById('shimmer2');
+            if (isMobile && shimmer2) {
+                shimmer2.style.display = 'none';
+            }
 
             const particlesContainer = document.getElementById('particlesContainer');
             
@@ -920,23 +975,23 @@
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDuration = Math.random() * 10 + 8 + 's';
+                particle.style.animationDuration = Math.random() * 12 + 10 + 's';
                 particle.style.animationDelay = Math.random() * 5 + 's';
                 
                 particlesContainer.appendChild(particle);
                 
                 setTimeout(() => {
                     if (particle.parentNode) particle.remove();
-                }, 15000);
+                }, 20000);
             }
 
             setInterval(createParticle, particleInterval);
             
             for (let i = 0; i < maxInitialParticles; i++) {
-                setTimeout(createParticle, i * 200);
+                setTimeout(createParticle, i * 250);
             }
 
-            // ═══════════ МУЗЫКА: НАДЁЖНЫЙ ЗАПУСК НА ВСЕХ УСТРОЙСТВАХ ═══════════
+            // ═══════════ МУЗЫКА: НАДЁЖНЫЙ ЗАПУСК (КАК НА СВАДЕБНОМ САЙТЕ) ═══════════
             const overlay = document.getElementById('page1Overlay');
             const revealBtn = document.getElementById('revealButton');
             const bgMusic = document.getElementById('bgMusic');
@@ -946,25 +1001,20 @@
             let musicPlaying = false;
             let audioUnlocked = false;
 
-            // Функция разблокировки AudioContext (critical для iOS)
             function unlockAudio() {
                 if (audioUnlocked) return;
-                
-                // Создаём пустой звук для разблокировки
                 const AudioContext = window.AudioContext || window.webkitAudioContext;
                 if (AudioContext) {
                     const ctx = new AudioContext();
                     if (ctx.state === 'suspended') {
                         ctx.resume().then(() => {
-                            console.log('🔓 AudioContext разблокирован');
                             audioUnlocked = true;
                         }).catch(() => {});
                     } else {
                         audioUnlocked = true;
                     }
                 }
-                
-                // Дополнительно: тихий звук через HTML5 Audio
+                // Дополнительный метод
                 const silentSound = new Audio();
                 silentSound.play().then(() => {
                     silentSound.pause();
@@ -972,29 +1022,19 @@
                 }).catch(() => {});
             }
 
-            // Запуск музыки с обработкой ошибок
             function playMusic() {
                 if (!bgMusic) return;
-                
-                // Сначала разблокируем аудио
                 unlockAudio();
-                
-                // Устанавливаем громкость
                 bgMusic.volume = 0.3;
-                
-                // Пытаемся воспроизвести
                 const playPromise = bgMusic.play();
-                
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
-                        console.log('✅ Музыка играет');
                         musicPlaying = true;
                         playBtn.style.display = 'none';
                         pauseBtn.style.display = 'flex';
                         musicPlayer.classList.add('show');
                     }).catch(err => {
-                        console.warn('⚠️ Автозапуск заблокирован, показываем кнопку:', err.message);
-                        // Показываем плеер с кнопкой play
+                        console.warn('Автозапуск заблокирован:', err.message);
                         musicPlaying = false;
                         playBtn.style.display = 'flex';
                         pauseBtn.style.display = 'none';
@@ -1014,7 +1054,6 @@
                         pauseBtn.style.display = 'flex';
                     }).catch(err => {
                         console.warn('Не удалось запустить:', err);
-                        // Пробуем ещё раз через взаимодействие
                         alert('Нажмите ещё раз для запуска музыки');
                     });
                 });
@@ -1031,16 +1070,12 @@
                 });
             }
 
-            // Основная кнопка "Нажмите" на оверлее
+            // Основная кнопка "Нажмите"
             revealBtn.addEventListener('click', () => {
-                // Скрываем оверлей
                 overlay.classList.add('hidden');
                 document.body.style.overflow = 'auto';
-                
-                // Запускаем музыку
                 playMusic();
-                
-                // На всякий случай: повторная попытка через небольшую задержку (для iOS)
+                // Дополнительная попытка для iOS
                 setTimeout(() => {
                     if (!musicPlaying && bgMusic) {
                         unlockAudio();
@@ -1050,13 +1085,35 @@
                             pauseBtn.style.display = 'flex';
                         }).catch(() => {});
                     }
-                }, 500);
+                }, 600);
             });
 
-            // Дополнительно: разблокировка при ЛЮБОМ касании на странице (для iOS)
+            // Разблокировка аудио при первом касании (iOS)
             document.addEventListener('touchstart', function() {
                 unlockAudio();
             }, { once: true });
+
+            // ═══════════ КАРТА: ОТКРЫТИЕ В ПРИЛОЖЕНИИ (как на свадебном сайте) ═══════════
+            const mapButton = document.getElementById('mapButton');
+            if (mapButton) {
+                mapButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const address = '2-й Кожуховский пр-д, д. 29, корп. 6';
+                    const yandexWeb = 'https://yandex.ru/maps/213/moscow/?text=' + encodeURIComponent(address) + '&z=16';
+                    const yandexApp = 'yandexmaps://maps.yandex.ru/?text=' + encodeURIComponent(address) + '&z=16';
+                    
+                    // Сначала пробуем открыть приложение Яндекс.Карт
+                    const startTime = Date.now();
+                    window.location.href = yandexApp;
+                    
+                    // Если через 800 мс приложение не открылось, идём в веб
+                    setTimeout(function() {
+                        if (Date.now() - startTime < 1200) {
+                            window.open(yandexWeb, '_blank');
+                        }
+                    }, 800);
+                });
+            }
 
             // ═══════════ ОБРАБОТКА ФОРМЫ ═══════════
             const form = document.getElementById('rsvpForm');
@@ -1107,7 +1164,7 @@
                 success.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
 
-            console.log('✅ Сайт готов. Музыка запустится после нажатия на кнопку "Нажмите".');
+            console.log('✅ Сайт оптимизирован. Музыка и карты работают надёжно.');
         })();
     </script>
 </body>
