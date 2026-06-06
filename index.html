@@ -949,41 +949,23 @@
             
             // Показываем индикатор загрузки
             const submitBtn = form.querySelector('.btn-submit');
-            const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Отправка...';
             submitBtn.disabled = true;
             
-            try {
-                // Формируем данные для отправки
-                const formData = new URLSearchParams();
-                formData.append('guestName', name);
-                formData.append('attendance', attendance.value === 'yes' ? 'Да, с радостью!' : 'К сожалению, нет');
-                formData.append('menu', menu.value === 'meat' ? '🥩 Мясо' : '🐟 Рыба');
-                formData.append('drinks', drinks);
-                
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    }
-                });
-                
-                const result = await response.json();
-                
-                if (result.status === 'ok') {
-                    form.style.display = 'none';
-                    success.classList.add('show');
-                    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else {
-                    throw new Error(result.message || 'Ошибка сервера');
-                }
-            } catch (error) {
-                console.error('Ошибка:', error);
-                alert('Произошла ошибка при отправке. Пожалуйста, попробуйте позже или свяжитесь с организатором.');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
+            // Используем GET с параметрами для обхода CORS
+            const params = new URLSearchParams();
+            params.append('guestName', name);
+            params.append('attendance', attendance.value === 'yes' ? 'Да, с радостью!' : 'К сожалению, нет');
+            params.append('menu', menu.value === 'meat' ? '🥩 Мясо' : '🐟 Рыба');
+            params.append('drinks', drinks);
+            
+            const img = new Image();
+            img.src = GOOGLE_SCRIPT_URL + '?' + params.toString();
+            
+            // Показываем успех
+            form.style.display = 'none';
+            success.classList.add('show');
+            success.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     </script>
 </body>
