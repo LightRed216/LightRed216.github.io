@@ -602,12 +602,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;          /* ← добавь */
         }
         .photo-frame-4 img {
             width: 100%;
             height: auto;
             display: block;
             object-fit: contain;
+            object-position: center;     /* ← добавь */
+            margin: 0 auto;              /* ← добавь */
         }
         .photo-placeholder {
             color: #8b7355;
@@ -900,7 +903,7 @@
                 <p>Приветствуется одежда, соответствующая стилю мероприятия — <strong>яркая и красочная</strong></p>
                 <div class="photo-frame-4">
                     <img src="4.jpg" alt="Фото 4 – Одежда" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <span class="photo-placeholder">📷 Фото 4<br><small>4.jpg</small></span>
+                    <span class="photo-placeholder" style="display:none;">📷 Фото 4<br><small>4.jpg</small></span>
                 </div>
             </div>
 
