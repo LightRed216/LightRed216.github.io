@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Михаилу 50! — Юбилей в стиле Pin-up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Oswald:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Pacifico&family=Bebas+Neue&family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #c0392b;
+            --dark-red: #7b1f1f;
+            --gold: #d4a843;
+            --cream: #fdf3e0;
+            --dark: #1a1a1a;
+            --loft-bg: #1e1b1b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--loft-bg);
+            color: #f0e6d3;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* ═══════════ АНИМИРОВАННЫЙ ФОН (ЧАСТИЦЫ + ГРАДИЕНТ) ═══════════ */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                /* Виньетка */
+                radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.7) 100%),
+                /* Переливающийся градиент */
+                linear-gradient(45deg, 
+                    rgba(20,15,10,0.95) 0%, 
+                    rgba(40,30,20,0.8) 25%,
+                    rgba(30,20,15,0.9) 50%,
+                    rgba(45,35,20,0.8) 75%,
+                    rgba(20,15,10,0.95) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Парящие золотые частицы */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(212,168,67,0.8) 0%, 
+                rgba(240,200,100,0.4) 40%, 
+                transparent 70%);
+            animation: floatUp linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Мерцающие блики */
+        .shimmer {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(255,215,0,0.15) 0%, 
+                transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: shimmerFloat 8s ease-in-out infinite;
+        }
+
+        .shimmer:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .shimmer:nth-child(2) {
+            top: 60%;
+            left: 70%;
+            animation-delay: -4s;
+            width: 250px;
+            height: 250px;
+        }
+
+        .shimmer:nth-child(3) {
+            top: 40%;
+            left: 50%;
+            animation-delay: -2s;
+            width: 150px;
+            height: 150px;
+        }
+
+        @keyframes shimmerFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            25% {
+                transform: translate(50px, -30px) scale(1.2);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-20px, 40px) scale(0.8);
+                opacity: 0.2;
+            }
+            75% {
+                transform: translate(-40px, -20px) scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        /* Лофт-текстура (поверх всего) */
+        .loft-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.06;
+            background:
+                repeating-linear-gradient(0deg, 
+                    transparent, 
+                    transparent 2px, 
+                    rgba(255,255,255,0.02) 2px, 
+                    rgba(255,255,255,0.02) 4px),
+                repeating-linear-gradient(90deg, 
+                    transparent, 
+                    transparent 60px, 
+                    rgba(255,255,255,0.015) 60px, 
+                    rgba(255,255,255,0.015) 61px);
+        }
+
+        /* ─── СТРАНИЦА 1 (ОВЕРЛЕЙ) ─── */
+        .page-1-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, 
+                rgba(10,8,6,0.75) 0%, 
+                rgba(20,15,10,0.65) 50%, 
+                rgba(10,8,6,0.85) 100%),
+                url('1.jpg') center/cover no-repeat;
+            background-color: #1a100c;
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+            will-change: transform;
+            box-shadow: 0 0 100px rgba(212,168,67,0.3), inset 0 0 200px rgba(0,0,0,0.5);
+        }
+
+        .page-1-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 50% 50%, 
+                rgba(255,215,0,0.1) 0%, 
+                transparent 70%);
+            animation: overlayGlow 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes overlayGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .page-1-overlay.hidden {
+            transform: translateY(-100%);
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .big-50 {
+            font-family: 'Bebas Neue', 'Oswald', sans-serif;
+            font-size: clamp(140px, 22vw, 260px);
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 
+                0 0 30px rgba(212,168,67,0.8), 
+                0 0 60px rgba(212,168,67,0.5), 
+                0 0 100px rgba(240,180,80,0.4), 
+                0 4px 8px rgba(0,0,0,0.7),
+                0 0 150px rgba(255,200,50,0.3);
+            letter-spacing: 8px;
+            line-height: 1;
+            animation: fiftyGlow 2.5s ease-in-out infinite;
+            user-select: none;
+            filter: drop-shadow(0 0 20px rgba(255,180,0,0.5));
+        }
+
+        @keyframes fiftyGlow {
+            0%,100% { 
+                text-shadow: 0 0 30px rgba(212,168,67,0.8), 0 0 60px rgba(212,168,67,0.5), 0 0 100px rgba(240,180,80,0.4);
+            }
+            50% { 
+                text-shadow: 0 0 50px rgba(255,200,100,1), 0 0 90px rgba(240,180,80,0.8), 0 0 140px rgba(255,190,70,0.6), 0 0 200px rgba(255,160,40,0.4);
+            }
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(18px, 3vw, 26px);
+            color: #f0e0c8;
+            letter-spacing: 2px;
+            font-style: italic;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.7), 0 0 30px rgba(255,200,100,0.2);
+        }
+
+        .btn-press {
+            display: inline-block;
+            padding: 18px 55px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #1a1008;
+            background: linear-gradient(135deg, #e8c565, #c8972e, #d4a843);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 
+                0 8px 30px rgba(200,150,50,0.5), 
+                0 0 50px rgba(212,168,67,0.35),
+                0 0 80px rgba(255,180,40,0.2);
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+            position: relative;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        .btn-press:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 
+                0 14px 40px rgba(220,170,60,0.65), 
+                0 0 80px rgba(240,190,80,0.5),
+                0 0 120px rgba(255,200,60,0.3);
+            background: linear-gradient(135deg, #f5d875, #dba840, #e8c565);
+            color: #0d0804;
+        }
+        .btn-press:active { transform: translateY(0) scale(0.97); }
+        
+        .btn-press::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 60%;
+            height: 200%;
+            background: rgba(255,255,255,0.25);
+            transform: rotate(25deg);
+            transition: left 0.6s;
+        }
+        .btn-press:hover::after {
+            left: 120%;
+        }
+
+        .age-badge {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--dark-red);
+            border: 2px solid #fff;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(200,50,30,0.6), 0 0 30px rgba(255,0,0,0.2);
+            animation: badgePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(200,50,30,0.6); }
+            50% { box-shadow: 0 0 25px rgba(255,50,30,0.9), 0 0 40px rgba(255,0,0,0.3); }
+        }
+
+        /* ─── СТРАНИЦА 2 ─── */
+        .page-2 {
+            padding: 40px 20px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-2-inner {
+            max-width: 750px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* Фото 2 */
+        .photo-2-full {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(212,168,67,0.6);
+            box-shadow: 
+                0 10px 45px rgba(0,0,0,0.6), 
+                0 0 30px rgba(212,168,67,0.35),
+                0 0 60px rgba(255,180,40,0.15);
+            background: #2a1f15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .photo-2-full img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+        .photo-2-full .photo-placeholder {
+            color: #8b7355;
+            font-size: 16px;
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+
+        .birthday-tag {
+            font-family: 'Pacifico', 'Lobster', cursive;
+            font-size: clamp(28px, 5vw, 42px);
+            color: #f0c060;
+            text-shadow: 0 0 20px rgba(240,180,80,0.5), 0 0 40px rgba(255,200,100,0.2);
+            letter-spacing: 2px;
+            text-align: center;
+        }
+        .name-big {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 4px;
+            text-align: center;
+            text-shadow: 0 0 30px rgba(255,255,255,0.4);
+        }
+        .age-circle {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--dark-red);
+            color: #fff;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 80px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(200,40,30,0.5), 0 0 50px rgba(255,50,30,0.2);
+            letter-spacing: 2px;
+        }
+        .scroll-hint {
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: #a08060;
+            text-transform: uppercase;
+            animation: bounceDown 1.8s ease-in-out infinite;
+            text-align: center;
+        }
+        @keyframes bounceDown {
+            0%,100% { transform: translateY(0); opacity: 0.6; }
+            50% { transform: translateY(8px); opacity: 1; }
+        }
+
+        .invitation-card, .venue-card, .program-card, .dress-code-card, .rsvp-card {
+            background: rgba(25,18,12,0.75);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(212,168,67,0.5);
+            border-radius: 20px;
+            padding: 30px 25px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 
+                0 10px 50px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.03),
+                0 0 40px rgba(212,168,67,0.1);
+        }
+        .invitation-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 4vw, 32px);
+            color: #f0d78c;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(240,200,100,0.3);
+        }
+        .pinup-style {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(20px, 3.5vw, 28px);
+            color: #e8917e;
+            text-shadow: 0 0 15px rgba(255,100,100,0.3);
+        }
+        .date-big {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(26px, 5vw, 40px);
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .photo-frame-3, .photo-frame-4 {
+            width: 100%;
+            max-width: 500px;
+            height: 200px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 15px auto;
+            border: 2px solid rgba(212,168,67,0.5);
+            background: #2a1f15;
+            box-shadow: 0 0 30px rgba(0,0,0,0.4);
+        }
+        .photo-frame-3 img, .photo-frame-4 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .btn-map {
+            display: inline-block;
+            padding: 14px 35px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            background: #c0392b;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 6px 25px rgba(192,57,43,0.5), 0 0 40px rgba(255,50,30,0.2);
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .btn-map:hover { 
+            background: #e74c3c; 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 35px rgba(220,70,50,0.6), 0 0 60px rgba(255,50,30,0.3);
+        }
+
+        .program-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            border-bottom: 1px dashed rgba(180,140,80,0.2);
+        }
+        .program-time { font-weight: 700; color: #f0c060; text-shadow: 0 0 10px rgba(240,200,100,0.3); }
+        .program-desc { color: #ddd; }
+
+        .dress-code-card { 
+            border: 2px dashed rgba(232,145,126,0.5);
+            box-shadow: 0 0 40px rgba(255,100,100,0.1);
+        }
+
+        /* RSVP */
+        .rsvp-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: #f0d78c;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(240,200,100,0.3);
+        }
+        .rsvp-card label {
+            display: block;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #c9a96e;
+            margin-bottom: 6px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        .rsvp-card input[type="text"] {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 30px;
+            border: 1px solid rgba(180,140,80,0.4);
+            background: rgba(30,20,10,0.7);
+            color: #fff;
+            font-size: 15px;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 16px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .rsvp-card input:focus { 
+            border-color: #d4a843; 
+            box-shadow: 0 0 20px rgba(212,168,67,0.3), 0 0 40px rgba(255,200,100,0.1);
+        }
+        .radio-group, .checkbox-group { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+        .radio-option, .check-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(30,20,10,0.5);
+            border: 1px solid rgba(180,140,80,0.3);
+            border-radius: 25px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #ddd;
+            transition: all 0.3s;
+        }
+        .radio-option:hover, .check-option:hover {
+            border-color: #d4a843;
+            background: rgba(40,25,12,0.7);
+            box-shadow: 0 0 15px rgba(212,168,67,0.2);
+        }
+        .radio-option:has(input:checked), .check-option:has(input:checked) {
+            border-color: #d4a843;
+            background: rgba(60,35,15,0.7);
+            color: #f0d78c;
+            box-shadow: 0 0 20px rgba(212,168,67,0.3);
+        }
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #1a1008;
+            background: linear-gradient(135deg, #e8c565, #c8972e);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 
+                0 8px 30px rgba(200,150,50,0.4),
+                0 0 50px rgba(255,200,100,0.2);
+            margin-top: 10px;
+            transition: all 0.35s;
+        }
+        .btn-submit:hover { 
+            background: linear-gradient(135deg, #f5d875, #dba840);
+            box-shadow: 
+                0 12px 40px rgba(220,170,60,0.55),
+                0 0 70px rgba(255,200,100,0.3);
+            transform: translateY(-3px);
+        }
+        .success-msg { display: none; text-align: center; padding: 30px; color: #f0d78c; font-size: 18px; }
+        .success-msg.show { display: block; animation: fadeInUp 0.5s ease; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(18px, 3vw, 24px);
+            color: #f0d78c;
+            letter-spacing: 2px;
+            font-style: italic;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(240,200,100,0.3);
+        }
+
+        @media (max-width: 600px) {
+            .big-50 { font-size: 100px; }
+            .btn-press { padding: 14px 35px; font-size: 15px; }
+            .age-badge { width: 40px; height: 40px; font-size: 13px; }
+            .program-item { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ═══════════ АНИМИРОВАННЫЙ ФОН ═══════════ -->
+    <div class="animated-bg"></div>
+    
+    <!-- Мерцающие блики -->
+    <div class="shimmer"></div>
+    <div class="shimmer"></div>
+    <div class="shimmer"></div>
+    
+    <!-- Парящие частицы -->
+    <div class="particles-container" id="particlesContainer"></div>
+    
+    <!-- Лофт-текстура -->
+    <div class="loft-texture"></div>
+
+    <!-- ═══════════ ОВЕРЛЕЙ (страница 1) ═══════════ -->
+    <div class="page-1-overlay" id="page1Overlay">
+        <div class="content-wrapper">
+            <div class="big-50">50</div>
+            <p class="subtitle">Полвека — яркий сезон жизни</p>
+            <button class="btn-press" id="revealButton">Нажмите</button>
+        </div>
+        <div class="age-badge" title="18+">18+</div>
+    </div>
+
+    <!-- ═══════════ ОСНОВНОЙ КОНТЕНТ (страница 2) ═══════════ -->
+    <section class="page-2" id="page2">
+        <div class="page-2-inner">
+
+            <audio id="bgMusic" loop preload="auto">
+                <source src="1.mp3" type="audio/mp4">
+            </audio>
+
+            <!-- Фото 2 -->
+            <div class="photo-2-full">
+                <img src="2.jpg" alt="Фото 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span class="photo-placeholder">📷 Фото 2<br><small>2.jpg</small></span>
+            </div>
+
+            <p class="birthday-tag">🎂 birthday day 🎂</p>
+            <p class="name-big">Михаилу</p>
+            <div class="age-circle">50</div>
+            <p class="scroll-hint">↓ Листай вниз ↓</p>
+
+            <div class="invitation-card">
+                <h2>Дорогие друзья!</h2>
+                <p>Приглашаю на свой юбилей</p>
+                <p class="pinup-style">В стиле Pin-up</p>
+                <p class="date-big">10 июля 2026</p>
+            </div>
+
+            <div class="venue-card">
+                <h3>📍 Место</h3>
+                <p>Loft Hall #4: ITTEN HALL и LONG HALL</p>
+                <div class="photo-frame-3">
+                    <img src="3.jpg" alt="Фото 3 – Место" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="photo-placeholder">📷 Фото 3<br><small>3.jpg</small></span>
+                </div>
+                <p>Адрес: МЦК ЗИЛ, 2-й Кожуховский пр-д, д. 29, корп. 6</p>
+                <a href="https://yandex.ru/maps/213/moscow/?text=2-й%20Кожуховский%20пр-д,%20д.%2029,%20корп.%206&z=16" target="_blank" class="btn-map">🗺 Карта (Яндекс)</a>
+            </div>
+
+            <div class="program-card">
+                <h3>📋 Программа</h3>
+                <div class="program-item"><span class="program-time">16:00–17:00</span><span class="program-desc">Сбор гостей</span></div>
+                <div class="program-item"><span class="program-time">17:00</span><span class="program-desc">Начало банкета</span></div>
+                <div class="program-item"><span class="program-time">23:30–00:00</span><span class="program-desc">Финал</span></div>
+            </div>
+
+            <div class="dress-code-card">
+                <h3 style="font-family:'Pacifico',cursive;font-size:24px;color:#e8917e;">👗 Дресс-код</h3>
+                <p>Приветствуется одежда, соответствующая стилю мероприятия — <strong>яркая и красочная</strong></p>
+                <div class="photo-frame-4">
+                    <img src="4.jpg" alt="Фото 4 – Одежда" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="photo-placeholder">📷 Фото 4<br><small>4.jpg</small></span>
+                </div>
+            </div>
+
+            <div class="rsvp-card" id="rsvpFormContainer">
+                <h3>📝 Пожалуйста, ответьте</h3>
+                <form id="rsvpForm" novalidate>
+                    <label for="guestName">Ваше имя и фамилия <span style="font-weight:400;font-size:12px;">(Если Вы с парой — укажите оба имени)</span></label>
+                    <input type="text" id="guestName" placeholder="Иван Иванов и Мария Иванова" required>
+
+                    <label>Планируете ли вы присутствовать?</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="attendance" value="yes" required> Да, конечно!</label>
+                        <label class="radio-option"><input type="radio" name="attendance" value="no" required> К сожалению, нет</label>
+                    </div>
+
+                    <label>Уточните предпочтения по меню:</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="menu" value="meat" required> 🥩 Мясо</label>
+                        <label class="radio-option"><input type="radio" name="menu" value="fish" required> 🐟 Рыба</label>
+                    </div>
+
+                    <label>Предпочтения по напиткам <span style="font-weight:400;font-size:12px;">(Можно выбрать несколько)</span></label>
+                    <div class="checkbox-group">
+                        <label class="check-option"><input type="checkbox" name="drinks" value="Aperol spritz"> Aperol spritz</label>
+                        <label class="check-option"><input type="checkbox" name="drinks" value="Белое вино"> Белое вино</label>
+                        <label class="check-option"><input type="checkbox" name="drinks" value="Красное вино"> Красное вино</label>
+                        <label class="check-option"><input type="checkbox" name="drinks" value="Шампанское"> Шампанское</label>
+                        <label class="check-option"><input type="checkbox" name="drinks" value="Виски"> Виски</label>
+                        <label class="check-option"><input type="checkbox" name="drinks" value="Водка"> Водка</label>
+                        <label class="check-option"><input type="checkbox" name="drinks" value="Коньяк"> Коньяк</label>
+                        <label class="check-option"><input type="checkbox" name="drinks" value="Пиво"> Пиво</label>
+                        <label class="check-option"><input type="checkbox" name="drinks" value="Безалкогольные напитки"> Безалкогольные напитки</label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Отправить</button>
+                </form>
+                <div class="success-msg" id="successMsg">
+                    🎉 <strong>Спасибо!</strong><br>Ваш ответ получен.<br>До скорой встречи!
+                </div>
+            </div>
+
+            <p class="footer-text">До скорой встречи и прошу не опаздывать! ✨</p>
+        </div>
+    </section>
+
+    <script>
+        // ═══════════ СОЗДАНИЕ ПАРЯЩИХ ЧАСТИЦ ═══════════
+        const particlesContainer = document.getElementById('particlesContainer');
+        
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            const size = Math.random() * 4 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = Math.random() * 10 + 8 + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            
+            particlesContainer.appendChild(particle);
+            
+            // Удаляем частицу после завершения анимации
+            setTimeout(() => {
+                particle.remove();
+            }, 15000);
+        }
+
+        // Создаём частицы каждые 300мс
+        setInterval(createParticle, 300);
+        
+        // Начальные частицы
+        for (let i = 0; i < 20; i++) {
+            setTimeout(createParticle, i * 200);
+        }
+
+        // ═══════════ МУЗЫКА ═══════════
+        const overlay = document.getElementById('page1Overlay');
+        const revealBtn = document.getElementById('revealButton');
+        const bgMusic = document.getElementById('bgMusic');
+        let musicPlaying = false;
+
+        function playMusic() {
+            if (!musicPlaying) {
+                bgMusic.play().then(() => {
+                    musicPlaying = true;
+                }).catch(err => {
+                    console.warn('Автовоспроизведение заблокировано');
+                });
+            }
+        }
+
+        // Кнопка "Нажмите"
+        revealBtn.addEventListener('click', () => {
+            playMusic();
+            overlay.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+
+        // ═══════════ ОБРАБОТКА ФОРМЫ ═══════════
+        const form = document.getElementById('rsvpForm');
+        const success = document.getElementById('successMsg');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('guestName').value.trim();
+            const attendance = document.querySelector('input[name="attendance"]:checked');
+            const menu = document.querySelector('input[name="menu"]:checked');
+            if (!name) { alert('Укажите имя'); return; }
+            if (!attendance) { alert('Выберите присутствие'); return; }
+            if (!menu && attendance.value === 'yes') { alert('Выберите меню'); return; }
+            const drinks = Array.from(document.querySelectorAll('input[name="drinks"]:checked')).map(cb => cb.value);
+            console.log('📩 Ответ:', { name, attendance: attendance.value, menu: menu?.value, drinks });
+            form.style.display = 'none';
+            success.classList.add('show');
+            success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    </script>
+</body>
+</html>
